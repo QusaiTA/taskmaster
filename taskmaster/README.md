@@ -1,6 +1,6 @@
 ## description :
 
-**this application consist of three Activities.**
+**this application consist of five Activities.**
   - Main Activity : Contain six buttons.. Add Task,All Tasks,Eat,Code,Sleep,Settings.
   - Add Task : Contain two input field and one button that calculate the number of your tasks.
   - All Tasks : Contain an image.
