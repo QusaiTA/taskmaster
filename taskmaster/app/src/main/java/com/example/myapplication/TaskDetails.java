@@ -4,30 +4,23 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
-
-public class AddTask extends AppCompatActivity {
+public class TaskDetails extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_task);
+        setContentView(R.layout.activity_task_details);
 
-        TextView textView = findViewById(R.id.textView6);
+        Intent intent = getIntent();
 
-        Button button = findViewById(R.id.button3);
-        button.setOnClickListener(new View.OnClickListener() {
-            int count =1;
-            @Override
-            public void onClick(View view) {
+        String taskName = intent.getExtras().getString("Task");
 
-                textView.setText("Task Count :" + count++);
+        TextView text = findViewById(R.id.taskDetailLabel);
 
-            }
-        });
+        text.setText(taskName);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
@@ -36,9 +29,11 @@ public class AddTask extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent   = new Intent(AddTask.this, MainActivity.class);
+                Intent intent   = new Intent(TaskDetails.this, MainActivity.class);
                 startActivity(intent);
             }
         });
+
+
     }
 }
