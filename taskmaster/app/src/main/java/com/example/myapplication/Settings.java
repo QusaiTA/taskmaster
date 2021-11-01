@@ -1,32 +1,28 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
-
-public class AddTask extends AppCompatActivity {
+public class Settings extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_task);
+        setContentView(R.layout.activity_settings);
 
-        TextView textView = findViewById(R.id.textView6);
-
-        Button button = findViewById(R.id.button3);
-        button.setOnClickListener(new View.OnClickListener() {
-            int count =1;
-            @Override
-            public void onClick(View view) {
-
-                textView.setText("Task Count :" + count++);
-
-            }
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        findViewById(R.id.button4).setOnClickListener(view -> {
+            TextView textView = findViewById(R.id.userNameLabel);
+            String name = textView.getText().toString();
+            editor.putString("username",name);
+            editor.apply();
         });
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -36,9 +32,10 @@ public class AddTask extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent   = new Intent(AddTask.this, MainActivity.class);
+                Intent intent   = new Intent(Settings.this, MainActivity.class);
                 startActivity(intent);
             }
         });
+
     }
 }
