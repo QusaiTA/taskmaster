@@ -26,4 +26,9 @@
     <string name="code">Code</string>
     <string name="eat">EAT</string>
     <string name="settings">Settings</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="state">State</string>
+    <string name="body">Body</string>
+    <string name="title">Title</string>
 </resources>
