@@ -8,10 +8,15 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,21 +48,42 @@ public class MainActivity extends AppCompatActivity {
             Intent settingIntent = new Intent(MainActivity.this,Settings.class);
             startActivity(settingIntent);
         });
-        findViewById(R.id.eat).setOnClickListener(view -> {
-            Intent taskDetailsPageEat = new Intent(MainActivity.this,TaskDetails.class);
-            taskDetailsPageEat.putExtra("Task","Eating");
-            startActivity(taskDetailsPageEat);
-        });
-        findViewById(R.id.Code).setOnClickListener(view -> {
-            Intent taskDetailsPageCode = new Intent(MainActivity.this,TaskDetails.class);
-            taskDetailsPageCode.putExtra("Task","Coding");
-            startActivity(taskDetailsPageCode);
-        });
-        findViewById(R.id.Sleep).setOnClickListener(view -> {
-            Intent taskDetailsPageSleep = new Intent(MainActivity.this,TaskDetails.class);
-            taskDetailsPageSleep.putExtra("Task","Sleeping");
-            startActivity(taskDetailsPageSleep);
-        });
+//        findViewById(R.id.eat).setOnClickListener(view -> {
+//            Intent taskDetailsPageEat = new Intent(MainActivity.this,TaskDetails.class);
+//            taskDetailsPageEat.putExtra("Task","Eating");
+//            startActivity(taskDetailsPageEat);
+//        });
+//        findViewById(R.id.Code).setOnClickListener(view -> {
+//            Intent taskDetailsPageCode = new Intent(MainActivity.this,TaskDetails.class);
+//            taskDetailsPageCode.putExtra("Task","Coding");
+//            startActivity(taskDetailsPageCode);
+//        });
+//        findViewById(R.id.Sleep).setOnClickListener(view -> {
+//            Intent taskDetailsPageSleep = new Intent(MainActivity.this,TaskDetails.class);
+//            taskDetailsPageSleep.putExtra("Task","Sleeping");
+//            startActivity(taskDetailsPageSleep);
+//        });
+
+        List<Task> tasks = new ArrayList<>();
+
+        tasks.add(new Task("Coding","im coding write now, stay away!","new"));
+        tasks.add(new Task("Eating","Eating Now","in progress"));
+        tasks.add(new Task("Sleeping","i will go to sleep","complete"));
+        tasks.add(new Task("Coding","im coding write now, stay away!","new"));
+        tasks.add(new Task("Eating","Eating Now","new"));
+        tasks.add(new Task("Sleeping","i will go to sleep","assigned"));
+        tasks.add(new Task("Coding","im coding write now, stay away!","in progress"));
+        tasks.add(new Task("Eating","Eating Now","complete"));
+        tasks.add(new Task("Sleeping","i will go to sleep","new"));
+
+
+        RecyclerView AllTasks = findViewById(R.id.taskRecycler);
+
+        AllTasks.setLayoutManager(new LinearLayoutManager(this));
+
+        AllTasks.setAdapter(new TaskAdapter(tasks,this));
+
+
     }
 
     @SuppressLint("SetTextI18n")
