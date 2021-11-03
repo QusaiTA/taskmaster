@@ -15,11 +15,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.room.Room;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private TaskDao taskDao;
+    private  AppDataBase appDataBase;
+    private List<Task> taskList = new ArrayList<>();
+    private TaskAdapter taskAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,36 +70,70 @@ public class MainActivity extends AppCompatActivity {
 //            startActivity(taskDetailsPageSleep);
 //        });
 
-        List<Task> tasks = new ArrayList<>();
-
-        tasks.add(new Task("Coding","im coding write now, stay away!","new"));
-        tasks.add(new Task("Eating","Eating Now","in progress"));
-        tasks.add(new Task("Sleeping","i will go to sleep","complete"));
-        tasks.add(new Task("Coding","im coding write now, stay away!","new"));
-        tasks.add(new Task("Eating","Eating Now","new"));
-        tasks.add(new Task("Sleeping","i will go to sleep","assigned"));
-        tasks.add(new Task("Coding","im coding write now, stay away!","in progress"));
-        tasks.add(new Task("Eating","Eating Now","complete"));
-        tasks.add(new Task("Sleeping","i will go to sleep","new"));
-
-
-        RecyclerView AllTasks = findViewById(R.id.taskRecycler);
-
-        AllTasks.setLayoutManager(new LinearLayoutManager(this));
-
-        AllTasks.setAdapter(new TaskAdapter(tasks,this));
-
+//        List<Task> tasks = new ArrayList<>();
+//
+//        tasks.add(new Task("Coding","im coding write now, stay away!","new"));
+//        tasks.add(new Task("Eating","Eating Now","in progress"));
+//        tasks.add(new Task("Sleeping","i will go to sleep","complete"));
+//        tasks.add(new Task("Coding","im coding write now, stay away!","new"));
+//        tasks.add(new Task("Eating","Eating Now","new"));
+//        tasks.add(new Task("Sleeping","i will go to sleep","assigned"));
+//        tasks.add(new Task("Coding","im coding write now, stay away!","in progress"));
+//        tasks.add(new Task("Eating","Eating Now","complete"));
+//        tasks.add(new Task("Sleeping","i will go to sleep","new"));
+//
+//
+//        RecyclerView AllTasks = findViewById(R.id.taskRecycler);
+//
+//        AllTasks.setLayoutManager(new LinearLayoutManager(this));
+//
+//        AllTasks.setAdapter(new TaskAdapter(tasks,this));
+//
 
     }
 
+//    @SuppressLint("SetTextI18n")
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+//        String instName = sharedPreferences.getString("username","Go and set the Instructor Name");
+//
+//        TextView welcome = findViewById(R.id.welcomeMsg);
+//        welcome.setText( instName +" : Task");
+//
+//        appDataBase = Room.databaseBuilder(getApplicationContext(),AppDataBase.class,"task").allowMainThreadQueries().build();
+//        taskDao = appDataBase.taskDao();
+//        taskList = taskDao.getAll();
+//
+//        RecyclerView AllTasks = findViewById(R.id.taskRecycler);
+//        AllTasks.setLayoutManager(new LinearLayoutManager(this));
+//
+//        AllTasks.setAdapter(new TaskAdapter(taskList,this));
+//
+//
+//
+//
+//    }
+
     @SuppressLint("SetTextI18n")
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onStart() {
+        super.onStart();
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String instName = sharedPreferences.getString("username","Go and set the Instructor Name");
 
         TextView welcome = findViewById(R.id.welcomeMsg);
         welcome.setText( instName +" : Task");
+
+        appDataBase = Room.databaseBuilder(getApplicationContext(),AppDataBase.class,"task").allowMainThreadQueries().build();
+        taskDao = appDataBase.taskDao();
+        taskList = taskDao.getAll();
+
+        RecyclerView AllTasks = findViewById(R.id.taskRecycler);
+        AllTasks.setLayoutManager(new LinearLayoutManager(this));
+
+        AllTasks.setAdapter(new TaskAdapter(taskList,this));
     }
 }
